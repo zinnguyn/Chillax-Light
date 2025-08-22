@@ -1,0 +1,425 @@
+
+<style>
+
+/* ======================== */
+/* ===== Footer Styles ===== */
+/* ======================== */
+
+.main-footer {
+    padding: 40px 0;
+    border-top: 1px solid #eee;
+    position: relative;
+    margin-top: 30px;
+    text-align: center; /* Để dễ căn giữa pseudo-element */
+}
+
+.main-footer::before {
+    content: "";
+    display: block;
+    width: 600px;
+    height: 4px;  /* Độ dày thanh hồng */
+    background-color: #d81b60; /* Màu hồng */
+    margin: 0 auto 20px auto; /* Căn giữa + khoảng cách dưới */
+    border-radius: 2px; /* Bo góc cho đẹp */
+}
+
+.footer-sections-wrapper {
+    max-width: 1200px; /* Điều chỉnh chiều rộng tổng thể nếu cần */
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between; /* Đảm bảo căn đều 4 cột */
+    flex-wrap: wrap;
+    gap: 20px; /* Khoảng cách giữa các cột */
+    align-items: flex-start; /* Căn trên các cột */
+}
+
+.footer-section {
+    flex-basis: calc(25% - 20px); /* Chia đều 4 cột, trừ đi gap */
+    min-width: 220px; /* Đặt min-width để các cột không quá hẹp */
+    box-sizing: border-box;
+    text-align: left; /* Mặc định căn trái nội dung */
+}
+
+/* Footer Section Titles */
+.footer-title {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #333;
+    text-align: center; /* Tiêu đề vẫn căn giữa */
+    margin-bottom: 0px;
+    position: relative;
+    text-transform: uppercase;
+    padding-bottom: 15px;
+}
+
+.pink-underline {
+    width: 80px;
+    height: 2px;
+    background-color: #ff7dac; /* Màu hồng tươi */
+    margin: 0 auto 25px auto; /* Căn giữa và khoảng cách dưới */
+    position: relative;
+}
+
+.pink-underline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -2px;
+    width: 6px;
+    height: 6px;
+    background-color: white;
+    border: 1px solid #ff7dac;
+    border-radius: 50%;
+}
+
+
+/* Cột 1: Logo và Quote */
+.footer-col-logo {
+    flex-basis: 220px; /* Cố định chiều rộng để logo và quote không bị co quá nhỏ */
+    text-align: center; /* Căn giữa logo và quote trong cột */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Đảm bảo căn giữa theo chiều ngang */
+}
+
+.footer-logo img {
+    max-width: 150px;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.quote {
+    font-style: bold;
+    font-size: 0.85em;
+    color: #ff7dac;
+    font-weight: bold;
+    margin: 20px 0;
+    text-align: center; /* Căn giữa quote */
+}
+
+/* Cột 2: Thông tin liên hệ và Mạng xã hội */
+.footer-col-info {
+    text-align: left;
+}
+
+.contact-info p {
+    font-size: 0.9em;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.contact-info p i {
+    color:#ff7dac; /* Màu hồng đậm hơn */
+    margin-right: 8px;
+    font-size: 1em;
+}
+
+.social-icons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: white;
+    border-radius: 50%;
+    font-size: 18px;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+}
+
+.social-icon:hover {
+    transform: translateY(-3px);
+}
+
+/* Màu sắc riêng cho từng social icon theo mẫu */
+.social-icon.facebook { background-color: #3b5998; }
+.social-icon.instagram { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+.social-icon.tiktok { background-color: #000; }
+.social-icon.zalo { background-color: #0073e6; }
+.social-icon.email { background-color: #4CAF50; } /* Xanh lá cây cho Email theo mẫu */
+
+.social-icon img {
+    width: 20px;
+    height: 20px;
+}
+
+
+/* Cột 3: Chính sách */
+.footer-col-policy {
+    text-align: left;
+}
+
+.policy-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.policy-list li {
+    margin-bottom: 10px;
+}
+
+.policy-list li a {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.policy-list li a i {
+    color:#ff7dac; /* Màu hồng đậm hơn */
+    margin-right: 8px;
+    font-size: 0.8em;
+}
+
+.policy-list li a:hover {
+    color: #FF99CC;
+}
+
+/* Cột 4: Bản đồ */
+.footer-col-map {
+    text-align: left;
+}
+
+.map-container {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 100%;
+    height: 200px;
+}
+
+.map-container iframe {
+    display: block;
+}
+
+/* Footer Bottom Bar (Copyright) */
+.footer-bottom-bar {
+    background-color: #ff7dac; /* Màu hồng tươi */
+    color: white;
+    text-align: center;
+    padding: 15px 20px;
+    font-size: 0.85em;
+    margin-top: 40px;
+}
+
+/* Floating Action Buttons */
+.floating-action-buttons {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.fab-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: white;
+    font-size: 24px;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fab-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+.fab-button.call-button { background-color: #e60000; }
+.fab-button.email-button { background-color: #007bff; }
+.fab-button.facebook-button { background-color: #3b5998; }
+
+
+/* Responsive adjustments */
+@media (max-width: 992px) { /* Cho 4 cột, có thể điều chỉnh breakpoint này */
+    .main-content-wrapper {
+        padding: 0 15px;
+    }
+
+    .top-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .search-box {
+        margin: 0;
+        width: 100%;
+        max-width: none;
+    }
+
+    .actions {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .nav-list {
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+    }
+
+    .nav-list li a {
+        padding: 6px 12px;
+        font-size: 0.9em;
+    }
+
+    /* Footer Responsive */
+    .footer-sections-wrapper {
+        flex-direction: column; /* Chuyển sang cột đơn */
+        align-items: flex-start;
+        gap: 40px;
+    }
+
+    .footer-section {
+        flex-basis: 100%; /* Chiếm toàn bộ chiều rộng */
+        max-width: none;
+        padding: 0;
+    }
+
+    .footer-col-logo,
+    .footer-col-info,
+    .footer-col-policy,
+    .footer-col-map {
+        text-align: left; /* Đảm bảo căn trái */
+        align-items: flex-start; /* Cho các flex container */
+    }
+
+    .footer-logo img {
+        margin-left: 0;
+    }
+
+    .quote {
+        text-align: left; /* Quote căn trái trên mobile */
+    }
+
+    .contact-info p, .social-icons, .policy-list li a {
+        justify-content: flex-start; /* Căn trái nội dung */
+    }
+
+    .footer-title {
+        text-align: left; /* Tiêu đề cũng căn trái trên mobile */
+    }
+
+    .pink-underline {
+        margin: 0 0 25px 0; /* Căn trái underline trên mobile */
+    }
+
+    .pink-underline::before {
+        left: 0;
+        transform: translateX(0);
+    }
+
+    .map-container {
+        width: 100%;
+        max-width: none;
+        height: 180px;
+    }
+
+    .floating-action-buttons {
+        right: 10px;
+        bottom: 10px;
+        gap: 8px;
+    }
+
+    .fab-button {
+        width: 45px;
+        height: 45px;
+        font-size: 22px;
+    }
+}
+</style>
+
+
+<footer class="main-footer">
+    <div class="footer-sections-wrapper">
+        <div class="footer-section footer-col-logo">
+            <div class="footer-logo">
+                <img src="/img/logo.png" alt="Chillax Light Logo"> <% /* Cần đảm bảo đường dẫn đúng */ %>
+            </div>
+            <p class="quote">"Chúng tôi không bán đèn. Chúng tôi mang đến ánh sáng khiến bạn thấy dễ chịu hơn mỗi ngày"</p>
+        </div>
+
+        <div class="footer-section footer-col-info">
+            <h3 class="footer-title">THÔNG TIN</h3>
+            <div class="pink-underline"></div>
+            <div class="contact-info">
+                <p><i class="fas fa-map-marker-alt"></i> Địa chỉ: 106 Mễ Trì Thượng, phường Mễ Trì, Quận Nam Từ Liêm, Hà Nội</p>
+                <p><i class="fas fa-phone-alt"></i> Hotline / Zalo: 0528 757062</p>
+                <p><i class="fas fa-envelope"></i> Email: chillaxlight@gmail.com</p>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/chillaxlight" target="_blank" class="social-icon facebook" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/chillaxlight" target="_blank" class="social-icon instagram" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@chillaxlight" target="_blank" class="social-icon tiktok" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+
+        
+    
+                <a href="mailto:chillaxlight@gmail.com" class="social-icon email" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-section footer-col-policy">
+            <h3 class="footer-title">CHÍNH SÁCH</h3>
+            <div class="pink-underline"></div>
+            <ul class="policy-list">
+                <li><a href="/chinh-sach-bao-hanh"><i class="fas fa-caret-right"></i> Chính sách bảo hành</a></li>
+                <li><a href="/chinh-sach-doi-tra"><i class="fas fa-caret-right"></i> Chính sách đổi trả</a></li>
+                <li><a href="/chinh-sach-bao-mat"><i class="fas fa-caret-right"></i> Chính sách bảo mật</a></li>
+                <li><a href="/chinh-sach-van-chuyen"><i class="fas fa-caret-right"></i> Chính sách vận chuyển</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section footer-col-map">
+            <h3 class="footer-title">BẢN ĐỒ</h3>
+            <div class="pink-underline"></div>
+            <div class="map-container">
+                <iframe
+                    src="http://googleusercontent.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.382029583272!2d105.77666987508821!3d21.01185348873738!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab5009945037%3A0x1d3a54b3c4f7a1f5!2s106%20M%E1%BB%85%20Tr%C3%AC%20Th%C6%B0%E1%BB%A3ng%2C%20M%E1%BB%85%20Tr%C3%AC%2C%20Nam%20T%E1%BB%AB%20Li%C3%AAm%2C%20H%C3%A0%20N%E1%BB%99i%2C%20Vi%E1%BB%87t%20Nam!5e0!3m2!1svi!2s!4v1700000000000!5m2!1svi!2s"
+                    width="100%"
+                    height="200"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom-bar">
+        <p>Copyright 2025 © CHILLAX LIGHT</p>
+    </div>
+</footer>
+
+<div class="floating-action-buttons">
+    <a href="tel:0528757062" class="fab-button call-button" aria-label="Gọi điện"><i class="fas fa-phone-alt"></i></a>
+    <a href="mailto:chillaxlight@gmail.com" class="fab-button email-button" aria-label="Gửi Email"><i class="fas fa-envelope"></i></a>
+    <a href="https://www.facebook.com/chillaxlight" target="_blank" class="fab-button facebook-button" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+</div>

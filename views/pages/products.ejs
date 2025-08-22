@@ -1,0 +1,360 @@
+<%- include('../partials/header') %>
+
+<!-- Breadcrumb -->
+<div class="breadcrumbs">
+    <a href="/home">Trang chủ</a> / 
+    <a href="/shop">Cửa Hàng</a>
+</div>
+
+
+<div class="shop-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <!-- Lọc theo giá -->
+        <div class="price-filter">
+            <h3>LỌC THEO GIÁ</h3>
+            <div class="price-range">
+                <input type="text" placeholder="Min" value="59.000đ" id="minPrice">
+                <span>-</span>
+                <input type="text" placeholder="Max" value="189.000đ" id="maxPrice">
+                <button>LỌC</button>
+            </div>
+            <div style="font-size: 0.9em; color: #777;">Giá: 59.000đ - 189.000đ</div>
+        </div>
+
+        <!-- Danh mục sản phẩm -->
+        <div class="category-list">
+            <h3>DANH MỤC SẢN PHẨM</h3>
+            <ul>
+                <li><a href="#" class="filter-category active" data-category="">Tất cả sản phẩm</a></li>
+                <li><a href="#" class="filter-category" data-category="Đèn Hiệu Ứng Bầu Trời">Đèn Hiệu Ứng Bầu Trời</a></li>
+                <li><a href="#" class="filter-category" data-category="Đèn Quà Tặng">Đèn Quà Tặng</a></li>
+                <li><a href="#" class="filter-category" data-category="Đèn Trang Trí">Đèn Trang Trí</a></li>
+                <li><a href="#" class="filter-category" data-category="Tranh treo tường">Tranh treo tường</a></li>
+                <li><a href="#" class="filter-category" data-category="Đèn phòng ngủ">Đèn phòng ngủ</a></li>
+            </ul>
+        </div>
+
+        <!-- Bài viết -->
+        <div class="article-list">
+            <h3>BÀI VIẾT</h3>
+            <ul>
+                <% articles.forEach(article => { %>
+                    <li class="article-item">
+                        <img src="<%= article.imageUrl %>" alt="<%= article.title %>">
+                        <div class="article-title"><a href="#"><%= article.title %></a></div>
+                    </li>
+                <% }) %>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <section class="main-content">
+        <div class="product-header">
+            <div class="results-count" id="productCount"><%= featuredProducts.length %> kết quả</div>
+            <div class="sort-by">
+                <select>
+                    <option value="newest">Mới nhất</option>
+                    <option value="price_asc">Giá: Thấp đến Cao</option>
+                    <option value="price_desc">Giá: Cao đến Thấp</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="product-grid" id="productGrid">
+            <% featuredProducts.forEach(product => { %>
+                <%- include('../partials/product-card', { product }) %>
+            <% }) %>
+        </div>
+    </section>
+</div>
+
+<!-- Inline CSS cho bố cục -->
+<style>
+/* Breadcrumb */
+.breadcrumbs {
+    background-color: #fff;
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+    font-family: 'Montserrat', sans-serif;
+    
+    max-width: 1200px; /* giống width của .shop-layout */
+    margin: 0 auto 20px auto; /* căn giữa */
+    padding-left: 20px; /* căn giống sidebar */
+    display: block;
+
+}
+.breadcrumbs span { color: #777; font-size: 0.9em; }
+.breadcrumbs a { color: #333; font-weight: 600; }
+.breadcrumbs a:hover { color: #d81b60; }
+
+/* Layout */
+.shop-layout {
+    display: flex;
+    gap: 20px;
+    padding: 0 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Sidebar */
+.sidebar {
+    flex: 0 0 250px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.sidebar h3 {
+    font-size: 1em;
+    margin-bottom: 15px;
+    color: #000;
+    text-transform: uppercase;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+    font-weight: 700;
+}
+.price-filter { margin-bottom: 25px; }
+.price-range { display: flex; gap: 5px; margin-bottom: 10px; }
+.price-range input {
+    width: 75px;
+    padding: 7px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
+}
+.price-range button {
+    background-color: #d81b60;
+    color: #fff;
+    border: none;
+    padding: 7px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.price-range button:hover { background-color: #c01353; }
+
+.category-list li, .article-list li { margin-bottom: 8px; }
+.category-list a {
+    display: block;
+    padding: 5px 0;
+    font-size: 0.95em;
+    color: #555;
+}
+.category-list a.active, .category-list a:hover {
+    color: #d81b60;
+    font-weight: 600;
+}
+.article-item { display: flex; gap: 10px; margin-bottom: 12px; }
+.article-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.article-title { font-size: 0.9em; font-weight: 600; }
+
+/* Main Content */
+.main-content { flex: 1; }
+.product-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.results-count { font-weight: 600; color: #555; }
+
+/* Product Grid */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 20px;
+}
+/* bỏ dấu chấm đầu dòng */
+.category-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+/* Product Card */
+.products-section {
+        padding: 30px 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+    
+    .product-list {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* 4 cột */
+        gap: 15px; /* Khoảng cách nhỏ gọn */
+        padding: 0 20px;
+    }
+    
+    .product-card {
+        background: #fff;
+        border-radius: 8px;
+        border: 1px solid #eee;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        overflow: hidden;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+    }
+    
+    .product-image {
+        position: relative;
+        height: 188.62px; /* Cố định chiều cao ảnh */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+    }
+    
+    .product-image img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+    }
+    
+    .product-card:hover .product-image img {
+        transform: scale(1.05);
+    }
+    
+    .discount-badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: #FF69B4;
+        color: #fff;
+        font-size: 13px;
+        font-weight: bold;
+        padding: 6px 8px;
+        border-radius: 5px;
+    }
+    
+    .product-content {
+        padding: 12px;
+        flex-grow: 1;
+    }
+    
+    .product-title {
+        font-size: 1em;
+        font-weight: bold;
+        color: #555;
+        margin: 0 0 8px;
+        height: 2.5em;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+    
+    .product-price {
+        margin-bottom: 12px;
+    }
+    
+    .current-price {
+        color: #FF69B4;
+        font-weight: bold;
+        font-size: 1.2em;
+        margin-right: 8px;
+    }
+    
+    .old-price {
+        color: #999;
+        text-decoration: line-through;
+        font-size: 0.9em;
+    }
+    
+    .main-action-button {
+        display: inline-block;
+        padding: 8px 15px;
+        color: #FF69B4;
+        font-weight: bold;
+        border: 2px solid #FF69B4;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+    }
+    
+    .main-action-button:hover {
+        background: #FF69B4;
+        color: #fff;
+    }
+
+</style>
+
+<!-- JS xử lý lọc sản phẩm -->
+<script>
+async function fetchAndRenderProducts(category = "") {
+    let url = "/api/products";
+    if (category) url += "?category=" + encodeURIComponent(category);
+    try {
+        const response = await fetch(url);
+        const products = await response.json();
+        renderProducts(products);
+    } catch (error) {
+        console.error(error);
+        document.getElementById("productGrid").innerHTML = "<p>Lỗi tải sản phẩm</p>";
+    }
+}
+
+function renderProducts(products) {
+    const grid = document.getElementById("productGrid");
+    grid.innerHTML = "";
+    document.getElementById("productCount").textContent = products.length + " kết quả";
+
+    if (products.length) {
+        products.forEach(product => {
+            const wrapper = document.createElement("div");
+            wrapper.innerHTML = `
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.name}">
+                        ${product.discount ? `<div class="discount-badge">-${product.discount}%</div>` : ""}
+                    </div>
+                    <div class="product-content">
+                        <h5 class="product-title">${product.name}</h5>
+                        <div class="product-price">
+                            <span class="current-price">${product.price.toLocaleString()}₫</span>
+                            ${product.oldPrice ? `<span class="old-price">${product.oldPrice.toLocaleString()}₫</span>` : ""}
+                        </div>
+                        <a href="/product/${product.id}" class="main-action-button">Thêm vào giỏ hàng</a>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(wrapper.firstElementChild);
+        });
+    } else {
+        grid.innerHTML = "<p style='text-align:center;'>Không có sản phẩm</p>";
+    }
+}
+
+
+document.querySelectorAll(".filter-category").forEach(link => {
+    link.addEventListener("click", e => {
+        e.preventDefault();
+        document.querySelectorAll(".filter-category").forEach(l => l.classList.remove("active"));
+        link.classList.add("active");
+        fetchAndRenderProducts(link.dataset.category);
+    });
+});
+
+document.addEventListener("DOMContentLoaded", () => fetchAndRenderProducts());
+</script>
+
+<%- include('../partials/footer') %>

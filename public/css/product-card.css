@@ -1,0 +1,113 @@
+.products-section {
+    padding: 50px 0;
+    text-align: center;
+    background-color: #f8f8f8; /* Nền xám nhạt */
+}
+
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Luôn 4 cột */
+    gap: 15px;
+    padding: 0 10px;
+    max-width: 1200px; /* Giới hạn chiều rộng */
+    margin: 0 auto;
+}
+
+.product-card {
+    background-color: white;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 8px;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+}
+
+/* Hình ảnh */
+.product-image img {
+    width: 100%;
+    height: 188.62px; /* Chiều cao cố định */
+    object-fit: cover; /* Giữ tỉ lệ, cắt vừa khung */
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.05);
+}
+
+/* Badge */
+.product-badge {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+    color: #fff;
+}
+.product-badge.sale-badge { background-color: #FF69B4; }
+.product-badge.new-badge { background-color: #5cb85c; }
+.product-badge.top-badge { background-color: #f0ad4e; }
+
+/* Nội dung */
+.product-content {
+    padding: 15px;
+}
+
+.product-title {
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+    color: #555;
+    height: 3em;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.product-price {
+    margin-bottom: 15px;
+}
+.product-price .current-price {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #FF69B4;
+    margin-right: 10px;
+}
+.product-price .old-price {
+    font-size: 0.9em;
+    color: #999;
+    text-decoration: line-through;
+}
+
+/* Nút xem chi tiết */
+.btn-add-cart {
+    display: inline-block;
+    width: 90%;
+    padding: 10px;
+    background: #fff;
+    color: #FF69B4;
+    border: 2px solid #FF69B4;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+.btn-add-cart:hover {
+    background: #FF69B4;
+    color: #fff;
+}

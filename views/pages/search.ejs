@@ -1,0 +1,217 @@
+
+
+<div class="container">
+    <!-- Search Header -->
+    <div class="search-header py-5 text-center">
+        <h1 class="text-light mb-3">
+            <i class="fas fa-search text-primary me-3"></i>Kết Quả Tìm Kiếm
+        </h1>
+        <% if (query) { %>
+        <p class="lead text-muted">
+            Tìm thấy <span class="text-primary"><%= totalPosts %></span> kết quả cho: 
+            "<span class="text-warning"><%= query %></span>"
+        </p>
+        <% } else { %>
+        <p class="lead text-muted">Hiển thị tất cả <%= type === 'all' ? 'nội dung' : type %></p>
+        <% } %>
+    </div>
+
+    <!-- Filters -->
+    <div class="search-filters mb-4">
+        <div class="card bg-secondary border-0">
+            <div class="card-body">
+                <form method="GET" action="/search" class="row g-3 align-items-end">
+                    <div class="col-md-4">
+                        <label class="form-label text-light">Từ khóa</label>
+                        <input type="text" class="form-control" name="q" value="<%= query || '' %>" placeholder="Nhập từ khóa...">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label text-light">Loại nội dung</label>
+                        <select class="form-select" name="type">
+                            <option value="all" <%= type === 'all' ? 'selected' : '' %>>Tất cả</option>
+                            <option value="tool" <%= type === 'tool' ? 'selected' : '' %>>Công cụ</option>
+                            <option value="app" <%= type === 'app' ? 'selected' : '' %>>Ứng dụng</option>
+                            <option value="game" <%= type === 'game' ? 'selected' : '' %>>Game</option>
+                            <option value="video" <%= type === 'video' ? 'selected' : '' %>>Video</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-search me-2"></i>Tìm Kiếm
+                        </button>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="/search" class="btn btn-outline-light w-100">
+                            <i class="fas fa-times me-2"></i>Xóa
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- kết quả tìm kiếm -->
+    <% if (posts && posts.length > 0) { %>
+    <div class="search-results">
+        <div class="row">
+            <% posts.forEach(post => { %>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card bg-secondary h-100 border-0 shadow-sm hover-card">
+                    <% if (post.featured_image) { %>
+                    <img src="/uploads/<%= post.featured_image %>" class="card-img-top" style="height: 200px; object-fit: cover;">
+                    <% } else { %>
+                    <div class="card-img-top bg-gradient d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <i class="fas fa-<%= post.type === 'tool' ? 'tools' : post.type === 'app' ? 'mobile-alt' : post.type === 'game' ? 'gamepad' : 'video' %> fa-3x text-primary opacity-50"></i>
+                    </div>
+                    <% } %>
+                    
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="badge bg-<%= post.type === 'tool' ? 'warning' : post.type === 'app' ? 'success' : post.type === 'game' ? 'danger' : 'info' %>">
+                                <%= post.type === 'tool' ? 'CÔNG CỤ' : post.type === 'app' ? 'ỨNG DỤNG' : post.type === 'game' ? 'GAME' : 'VIDEO' %>
+                            </span>
+                            <div class="text-muted small">
+                                <i class="fas fa-eye me-1"></i><%= post.views %>
+                                <% if (post.downloads > 0) { %>
+                                <i class="fas fa-download ms-2 me-1"></i><%= post.downloads %>
+                                <% } %>
+                            </div>
+                        </div>
+                        
+                        <h5 class="card-title text-light">
+                            <a href="/post/<%= post.slug %>" class="text-decoration-none text-light">
+                                <%= post.title %>
+                            </a>
+                        </h5>
+                        
+                        <p class="card-text text-muted flex-grow-1">
+                            <%= post.excerpt || post.content.substring(0, 100) + '...' %>
+                        </p>
+                        
+                        <div class="card-meta text-muted small mb-3">
+                            <i class="fas fa-user me-1"></i><%= post.author ? post.author.username : 'ShopGame' %>
+                            <span class="ms-3">
+                                <i class="fas fa-calendar me-1"></i><%= new Date(post.createdAt).toLocaleDateString('vi-VN') %>
+                            </span>
+                        </div>
+                        
+                        <div class="mt-auto d-flex gap-2">
+                            <a href="/post/<%= post.slug %>" class="btn btn-primary btn-sm flex-grow-1">
+                                <i class="fas fa-eye me-1"></i>Xem Chi Tiết
+                            </a>
+                            <% if (post.download_url) { %>
+                            <a href="/download/<%= post.id %>" class="btn btn-outline-light btn-sm">
+                                <i class="fas fa-download"></i>
+                            </a>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+        </div>
+
+        <!-- Pagination -->
+        <% if (totalPages > 1) { %>
+        <nav aria-label="Search pagination" class="mt-5">
+            <ul class="pagination justify-content-center">
+                <% if (currentPage > 1) { %>
+                <li class="page-item">
+                    <a class="page-link" href="?q=<%= query || '' %>&type=<%= type %>&page=<%= currentPage - 1 %>">
+                        <i class="fas fa-chevron-left"></i> Trước
+                    </a>
+                </li>
+                <% } %>
+                
+                <% 
+                let startPage = Math.max(1, currentPage - 2);
+                let endPage = Math.min(totalPages, currentPage + 2);
+                %>
+                
+                <% for (let i = startPage; i <= endPage; i++) { %>
+                <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+                    <a class="page-link" href="?q=<%= query || '' %>&type=<%= type %>&page=<%= i %>"><%= i %></a>
+                </li>
+                <% } %>
+                
+                <% if (currentPage < totalPages) { %>
+                <li class="page-item">
+                    <a class="page-link" href="?q=<%= query || '' %>&type=<%= type %>&page=<%= currentPage + 1 %>">
+                        Sau <i class="fas fa-chevron-right"></i>
+                    </a>
+                </li>
+                <% } %>
+            </ul>
+        </nav>
+        <% } %>
+    </div>
+    <% } else { %>
+    <!-- No Results -->
+    <div class="no-results text-center py-5">
+        <i class="fas fa-search fa-4x text-muted mb-4"></i>
+        <h3 class="text-light mb-3">Không tìm thấy kết quả</h3>
+        <p class="text-muted mb-4">
+            <% if (query) { %>
+            Không tìm thấy nội dung nào phù hợp với từ khóa "<strong><%= query %></strong>"
+            <% } else { %>
+            Không có nội dung nào để hiển thị
+            <% } %>
+        </p>
+        
+        <div class="suggestions">
+            <h5 class="text-light mb-3">Gợi ý:</h5>
+            <ul class="list-unstyled text-muted">
+                <li><i class="fas fa-check text-success me-2"></i>Kiểm tra chính tả từ khóa</li>
+                <li><i class="fas fa-check text-success me-2"></i>Thử sử dụng từ khóa ngắn gọn hơn</li>
+                <li><i class="fas fa-check text-success me-2"></i>Thử tìm kiếm theo danh mục khác</li>
+            </ul>
+        </div>
+        
+        <div class="mt-4">
+            <a href="/" class="btn btn-primary me-3">
+                <i class="fas fa-home me-2"></i>Về Trang Chủ
+            </a>
+            <a href="/category/tool" class="btn btn-outline-warning">
+                <i class="fas fa-tools me-2"></i>Xem Công Cụ
+            </a>
+        </div>
+    </div>
+    <% } %>
+</div>
+
+<style>
+.search-header {
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(30, 58, 138, 0.1) 100%);
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+}
+
+.search-filters .card {
+    backdrop-filter: blur(10px);
+    background: rgba(33, 37, 41, 0.8) !important;
+}
+
+.hover-card {
+    transition: all 0.3s ease;
+}
+
+.hover-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(255, 107, 53, 0.2);
+}
+
+.card-meta {
+    border-top: 1px solid #333;
+    padding-top: 0.75rem;
+}
+
+.no-results {
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.05) 0%, rgba(30, 58, 138, 0.05) 100%);
+    border-radius: 1rem;
+    margin: 2rem 0;
+}
+
+.suggestions ul li {
+    padding: 0.5rem 0;
+}
+</style>

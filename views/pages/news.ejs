@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= pageTitle %></title>
+    <style>
+        /* General Body and Container Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5; /* Light gray background, similar to image */
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Softer shadow */
+            border-radius: 8px; /* Slightly rounded corners */
+            display: flex;
+            flex-wrap: wrap; /* Allows columns to wrap on smaller screens */
+            gap: 25px; /* Increased space between main content and sidebar */
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 3; /* Takes up 3 parts of available space */
+            min-width: 650px; /* Adjusted min-width for larger screens */
+        }
+
+        .main-content h1 {
+            font-size: 2em;
+            color: #2c3e50; /* Darker title */
+            margin-bottom: 25px;
+            text-align: left; /* Align to left */
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .article-list {
+            display: flex;
+            flex-direction: column;
+            gap: 30px; /* Increased gap between articles */
+        }
+
+        .article-item {
+            display: flex;
+            gap: 25px; /* Space between image and text */
+            padding: 20px;
+            border: 1px solid #e5e5e5; /* Lighter border */
+            border-radius: 10px; /* More rounded */
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .article-item:hover {
+            transform: translateY(-8px); /* More pronounced lift effect */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-item-thumbnail {
+            flex-shrink: 0;
+            width: 200px; /* Larger thumbnail width */
+            height: 140px; /* Larger thumbnail height */
+            overflow: hidden;
+            border-radius: 8px; /* Rounded image corners */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for thumbnail */
+        }
+
+        .article-item-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .article-item-content {
+            flex-grow: 1;
+        }
+
+        .article-item-date {
+            background-color: #007bff; /* Blue background for date */
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            font-weight: bold;
+            display: inline-block; /* Keep it inline with padding */
+            margin-bottom: 10px;
+            float: left; /* Float date to the left as in image */
+            margin-right: 15px; /* Space after date */
+        }
+
+        .article-item-title {
+            margin-top: 0;
+            clear: both; /* Clear float to prevent title from wrapping around date */
+            margin-bottom: 10px;
+        }
+
+        .article-item-title a {
+            font-size: 1.4em; /* Larger title font */
+            font-weight: bold;
+            color: #2c3e50; /* Darker title color */
+            text-decoration: none;
+            display: block;
+            line-height: 1.3;
+            transition: color 0.2s ease;
+        }
+
+        .article-item-title a:hover {
+            color: #007bff; /* Blue on hover */
+            text-decoration: underline;
+        }
+
+        .article-item-excerpt {
+            font-size: 0.95em;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            flex: 1; /* Takes up 1 part of available space */
+            min-width: 300px; /* Adjusted min-width for larger sidebar */
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .sidebar h3 {
+            font-size: 1.4em; /* Larger sidebar heading */
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #007bff; /* Blue underline, similar to image */
+        }
+
+        .sidebar-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-list li {
+            margin-bottom: 15px; /* More space between sidebar items */
+            display: flex;
+            gap: 15px; /* Space between sidebar thumbnail and text */
+            align-items: center;
+        }
+
+        .sidebar-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .sidebar-thumbnail {
+            width: 80px; /* Larger sidebar thumbnail */
+            height: 60px;
+            overflow: hidden;
+            border-radius: 5px;
+            flex-shrink: 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .sidebar-content {
+            flex-grow: 1;
+        }
+
+        .sidebar-list a {
+            color: #337ab7; /* A slightly darker blue for links */
+            text-decoration: none;
+            font-size: 1em;
+            line-height: 1.4;
+            display: block; /* Make the whole text block clickable */
+            transition: color 0.2s ease;
+        }
+
+        .sidebar-list a:hover {
+            color: #0056b3; /* Darker blue on hover */
+            text-decoration: underline;
+        }
+
+        .sidebar-category {
+            font-size: 0.85em;
+            color: #999;
+            margin-top: 5px;
+            display: block; /* Ensure it's on its own line */
+        }
+
+        /* Section Spacing in Sidebar */
+        .sidebar > div:not(:last-child) {
+            margin-bottom: 30px; /* More space between sidebar sections */
+            padding-bottom: 25px;
+            border-bottom: 1px dashed #d0d0d0; /* Dashed separator */
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column; /* Stack columns vertically */
+                gap: 30px; /* Adjust gap when stacked */
+            }
+
+            .main-content, .sidebar {
+                width: 100%;
+                min-width: unset; /* Remove min-width constraint */
+            }
+
+            .main-content {
+                padding-right: 0; /* Remove padding if stacked */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .article-item {
+                flex-direction: column; /* Stack thumbnail and content vertically */
+                align-items: flex-start;
+                padding: 15px; /* Reduce padding */
+            }
+
+            .article-item-thumbnail {
+                width: 100%;
+                height: 200px; /* Make thumbnail taller on small screens */
+                margin-bottom: 15px;
+            }
+
+            .article-item-title a {
+                font-size: 1.25em;
+            }
+
+            .article-item-excerpt {
+                font-size: 0.9em;
+            }
+
+            .main-content h1 {
+                font-size: 1.8em;
+            }
+
+            .sidebar h3 {
+                font-size: 1.25em;
+            }
+
+            .sidebar-list li {
+                flex-direction: column; /* Stack sidebar items vertically */
+                align-items: flex-start;
+            }
+
+            .sidebar-thumbnail {
+                width: 100%; /* Full width for sidebar thumbnail */
+                height: 100px; /* Taller */
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+                margin: 10px auto;
+            }
+            .article-item {
+                padding: 10px;
+                gap: 15px;
+            }
+            .article-item-title a {
+                font-size: 1.1em;
+            }
+            .article-item-excerpt {
+                font-size: 0.85em;
+            }
+            .sidebar {
+                padding: 15px;
+            }
+            .sidebar h3 {
+                font-size: 1.1em;
+                margin-bottom: 15px;
+            }
+            .sidebar-list a {
+                font-size: 0.88em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <%- include('../partials/header', { currentPage: currentPage }) %>
+
+    <div class="container">
+        <main class="main-content">
+            <h1>Tin Tức Mới Nhất</h1>
+            <section class="article-list">
+                <article class="article-item">
+                    <div class="article-item-thumbnail">
+                        <a href="/post/huong-dan-lap-den-ngu-hoa-tulip">
+                            <img src="/images/den-ngu-tulip-huong-dan.jpg" alt="Đèn ngủ hoa tulip">
+                        </a>
+                    </div>
+                    <div class="article-item-content">
+                        <div class="article-item-date">13 Th7</div>
+                        <h2 class="article-item-title">
+                            <a href="/post/huong-dan-lap-den-ngu-hoa-tulip">Hướng Dẫn 1 Số Cách Lắp Đèn Ngủ Hoa Tulip Hình Vuông – Đơn Giản, An Toàn, Tinh Tế</a>
+                        </h2>
+                        <p class="article-item-excerpt">Giới thiệu chung về đèn ngủ hoa tulip hình vuông cách làm đèn ngủ hoa tulip đang được nhiều người quan tâm đến. Đèn ngủ hoa tulip hình vuông đang là lựa chọn yêu thích của nhiều gia đình, đặc biệt trong các không gian nội thất hiện đại hoặc mang phong cách nhẹ nhàng...</p>
+                    </div>
+                </article>
+
+                <article class="article-item">
+                    <div class="article-item-thumbnail">
+                        <a href="/post/3-loai-den-phong-ngu-nen-tranh">
+                            <img src="/images/den-phong-ngu-nen-tranh.jpg" alt="Đèn phòng ngủ nên tránh">
+                        </a>
+                    </div>
+                    <div class="article-item-content">
+                        <div class="article-item-date">13 Th7</div>
+                        <h2 class="article-item-title">
+                            <a href="/post/3-loai-den-phong-ngu-nen-tranh">3 Loại Đèn Phòng Ngủ Bạn Nên Tránh Nếu Muốn Ngủ Ngon</a>
+                        </h2>
+                        <p class="article-item-excerpt">Giấc ngủ kém có thể đến từ... ánh sáng sai cách? Trong thời đại hiện đại, nhiều người đầu tư không gian sống đẹp để mà bỏ quên yếu tố ánh sáng phù hợp trong phòng ngủ. Thực tế, các loại đèn phòng ngủ tưởng chừng chỉ mang tính trang trí, nhưng lại ảnh...</p>
+                    </div>
+                </article>
+
+                <article class="article-item">
+                    <div class="article-item-thumbnail">
+                        <a href="/post/den-ngu-vintage-ve-dep-hoai-co">
+                            <img src="/images/den-ngu-vintage.jpg" alt="Đèn ngủ vintage">
+                        </a>
+                    </div>
+                    <div class="article-item-content">
+                        <div class="article-item-date">08 Th7</div>
+                        <h2 class="article-item-title">
+                            <a href="/post/den-ngu-vintage-ve-dep-hoai-co">Đèn ngủ vintage – Vẻ đẹp hoài cổ giữa không gian hiện đại</a>
+                        </h2>
+                        <p class="article-item-excerpt">Trong thế giới hiện đại đầy sắc màu và công nghệ, phong cách vintage dường như là một "đối" nhẹ nhàng để con người tìm lại những giá trị xưa cũ, sâu lắng và gần gũi. Đèn ngủ vintage chính là một trong những món đồ nội thất mang tinh thần hoài niệm ấy...</p>
+                    </div>
+                </article>
+
+                <article class="article-item">
+                    <div class="article-item-thumbnail">
+                        <a href="/post/top-den-ngu-led-de-ban-gia-duoi-200k">
+                            <img src="/images/den-ngu-led-chillax.jpg" alt="Đèn ngủ LED Chillax Light">
+                        </a>
+                    </div>
+                    <div class="article-item-content">
+                        <div class="article-item-date">06 Th7</div>
+                        <h2 class="article-item-title">
+                            <a href="/post/top-den-ngu-led-de-ban-gia-duoi-200k">🌟 Top Đèn Ngủ LED Để Bàn Giá Dưới 200K Từ Chillax Light – Gọn Nhẹ, Đẹp, Tiết Kiệm Điện!</a>
+                        </h2>
+                        <p class="article-item-excerpt">Top Đèn Ngủ LED Để Bàn Giá Dưới 200K Từ Chillax Light – Gọn Nhẹ, Đẹp, Tiết Kiệm Điện! Với những ưu điểm như: Tích hợp đèn LED tiết kiệm điện, thiết kế hiện đại, nhiều kiểu dáng...</p>
+                    </div>
+                </article>
+
+                </section>
+        </main>
+
+        <aside class="sidebar">
+            <div class="featured-articles">
+                <h3>Bài Viết Nổi Bật</h3>
+                <ul class="sidebar-list">
+                    <li>
+                        <div class="sidebar-thumbnail">
+                            <a href="/post/den-ngu-sac-pin-cho-be-tu-che">
+                                <img src="/images/sidebar-baby-lamp.jpg" alt="Đèn ngủ sạc pin cho bé">
+                            </a>
+                        </div>
+                        <div class="sidebar-content">
+                            <a href="/post/den-ngu-sac-pin-cho-be-tu-che">Đèn Ngủ Sạc Pin Cho Bé – Cách Làm Và Lưu Ý An Toàn Khi Tự Chế Tại Nhà</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="sidebar-thumbnail">
+                            <a href="/post/bi-quyet-chon-den-ngu-doi-mau">
+                                <img src="/images/sidebar-color-lamp.jpg" alt="Đèn ngủ đổi màu">
+                            </a>
+                        </div>
+                        <div class="sidebar-content">
+                            <a href="/post/bi-quyet-chon-den-ngu-doi-mau">3 Bí Quyết Giúp Bạn Chọn Mua Đèn Ngủ Đổi Màu Chất Lượng, Bền Và An Toàn</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="sidebar-thumbnail">
+                            <a href="/post/top-3-mau-den-ngu-de-thuong-gia-re">
+                                <img src="/images/sidebar-cheap-lamp.jpg" alt="Đèn ngủ giá rẻ">
+                            </a>
+                        </div>
+                        <div class="sidebar-content">
+                            <a href="/post/top-3-mau-den-ngu-de-thuong-gia-re">Top 3 Mẫu Đèn Ngủ Để Thương Giá Rẻ Dưới 200K – Đẹp Không Thua Hàng Cao Cấp</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="recent-articles">
+                <h3>Bài Viết</h3>
+                <ul class="sidebar-list">
+                    <li>
+                        <div class="sidebar-thumbnail">
+                            <a href="/post/den-ngu-sac-pin-cho-be-tu-che">
+                                <img src="/images/sidebar-baby-lamp.jpg" alt="Đèn ngủ sạc pin cho bé">
+                            </a>
+                        </div>
+                        <div class="sidebar-content">
+                            <a href="/post/den-ngu-sac-pin-cho-be-tu-che">Đèn Ngủ Sạc Pin Cho Bé – Cách Làm Và Lưu Ý An Toàn Khi Tự Chế Tại Nhà</a>
+                            <div class="sidebar-category">Nhà</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="sidebar-thumbnail">
+                            <a href="/post/5-vi-tri-dat-bong-den-phong-ngu">
+                                <img src="/images/sidebar-bulb-position.jpg" alt="Vị trí đặt bóng đèn">
+                            </a>
+                        </div>
+                        <div class="sidebar-content">
+                            <a href="/post/5-vi-tri-dat-bong-den-phong-ngu">Top 5 vị trí đặt bóng đèn trong phòng ngủ mà ai cũng nên biết</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="sidebar-thumbnail">
+                            <a href="/post/5-mau-den-ngu-phong-cach-han-quoc">
+                                <img src="/images/sidebar-korean-lamp.jpg" alt="Đèn ngủ phong cách Hàn Quốc">
+                            </a>
+                        </div>
+                        <div class="sidebar-content">
+                            <a href="/post/5-mau-den-ngu-phong-cach-han-quoc">5 Mẫu Đèn Ngủ Phong Cách Hàn Quốc Dễ Làm Khiến Không Gian Thêm Lãng Mạn</a>
+                            <div class="sidebar-category">Lãng Mạn</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="sidebar-thumbnail">
+                            <a href="/post/bien-khong-gian-thanh-rap-chieu-den-ngu">
+                                <img src="/images/sidebar-projector-lamp.jpg" alt="Đèn ngủ chiếu rạp">
+                            </a>
+                        </div>
+                        <div class="sidebar-content">
+                            <a href="/post/bien-khong-gian-thanh-rap-chieu-den-ngu">Biến không gian thành rạp chiếu đèn ngủ</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+    <% if (typeof totalPages !== 'undefined' && totalPages > 1) { %>
+        <div class="pagination">
+          <% if (currentPage > 1) { %>
+            <a href="/tin-tuc?page=<%= currentPage - 1 %>">Trang trước</a>
+          <% } else { %>
+            <span class="disabled">Trang trước</span>
+          <% } %>
+      
+          <% for (let i = 1; i <= totalPages; i++) { %>
+            <% if (i === currentPage) { %>
+              <span class="current-page"><%= i %></span>
+            <% } else { %>
+              <a href="/tin-tuc?page=<%= i %>"><%= i %></a>
+            <% } %>
+          <% } %>
+      
+          <% if (currentPage < totalPages) { %>
+            <a href="/tin-tuc?page=<%= currentPage + 1 %>">Trang sau</a>
+          <% } else { %>
+            <span class="disabled">Trang sau</span>
+          <% } %>
+        </div>
+      <% } %>
+      
+    <%- include('../partials/footer') %>
+</body>
+</html>

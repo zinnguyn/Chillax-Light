@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Danh Mục | Admin Dashboard</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+            background-color: #f9f9f9;
+        }
+        .sidebar {
+            width: 220px;
+            background-color: #d81b60;
+            color: white;
+            padding: 20px;
+            flex-shrink: 0;
+        }
+        .sidebar h3 {
+            margin-top: 0;
+            font-size: 1.4rem;
+            border-bottom: 1px solid #d81b60;
+            padding-bottom: 10px;
+        }
+        .sidebar a {
+            color: #ecf0f1;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .sidebar a:hover {
+            background-color: #d81b60;
+        }
+        .main-content {
+            flex-grow: 1;
+            padding: 30px;
+            background-color: #fff;
+        }
+        h1 {
+            font-size: 1.8rem;
+            color: #d81b60;
+            margin-bottom: 20px;
+        }
+        .btn {
+            background-color: #d81b60;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: #d81b60;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+        }
+        table th, table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        table th {
+            background-color: #f0f0f0;
+            font-weight: 600;
+        }
+        table thead {
+            background-color: #f8bbd0;
+        }
+        table tr:hover {
+            background-color: #fce4ec;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h3>Admin Panel</h3>
+        <a href="/admin">📊 Dashboard</a>
+        <a href="/admin/posts">📝 Bài viết</a>
+        <a href="/admin/products">📦 Sản phẩm</a>
+       
+    </div>
+    <div class="main-content">
+        <h1>Quản Lý Danh Mục</h1>
+
+<a href="/admin/categories/add" class="btn">Thêm Danh Mục Mới</a>
+
+<% if (categories && categories.length > 0) { %>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên danh mục</th>
+                <th>Mô tả</th>
+                <th>Ngày tạo</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% categories.forEach(category => { %>
+                <tr>
+                    <td><%= category.id %></td>
+                    <td><%= category.name %></td>
+                    <td><%= category.description %></td>
+                    <td><%= category.createdAt.toLocaleDateString() %></td>
+                    <td>
+                        <a href="/admin/categories/edit/<%= category.id %>" class="btn" style="background-color: #ffc107;">Sửa</a>
+                        <form action="/admin/categories/delete/<%= category.id %>" method="POST" style="display: inline-block;">
+                            <button type="submit" class="btn" style="background-color: #dc3545;" onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục này không?');">Xóa</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+<% } else { %>
+    <p>Chưa có danh mục nào trong hệ thống.</p>
+<% } %>
+    </div>
+</body>
+</html>

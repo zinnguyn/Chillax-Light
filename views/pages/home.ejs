@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chillax Light</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/product-card.css">
+    <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap JS + Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+<%- include('../partials/header') %>
+<div class="main-content-wrapper">
+<!-- Banner -->
+<section class="banner">
+  <div class="main-banner">
+    <img src="/img/baner.png" alt="Main Banner">
+  </div>
+  <div class="sub-banners">
+    <img src="/img/baner1.png" alt="Sub Banner 1">
+    <img src="/img/baner2.png" alt="Sub Banner 2">
+  </div>
+</section>
+
+<!-- Slogan -->
+
+
+    <section class="slogan-section">
+        <h2>CHILLAX LIGHT - ĐÈN BẬT CHILL, BẬT MOOD</h2>
+    </section>
+
+    <section class="categories-section">
+        <h3 class="section-title">DANH MỤC SẢN PHẨM</h3>
+        <div class="category-list">
+            <div class="category-item">
+                <img src="/img/den1.png" alt="Đèn hiệu ứng Bầu trời">
+                <div class="category-info">
+                    <h4>ĐÈN HIỆU ỨNG BẦU TRỜI</h4>
+                    <span>2 SẢN PHẨM</span>
+                </div>
+            </div>
+            <div class="category-item">
+                <img src="/img/den2.png" alt="Đèn quà tặng">
+                <div class="category-info">
+                    <h4>ĐÈN QUÀ TẶNG</h4>
+                    <span>(Số sản phẩm) SẢN PHẨM</span>
+                </div>
+            </div>
+            <div class="category-item">
+                <img src="/img/den3.png" alt="Đèn trang trí">
+                <div class="category-info">
+                    <h4>ĐÈN TRANG TRÍ</h4>
+                    <span>(Số sản phẩm) SẢN PHẨM</span>
+                </div>
+            </div>
+            <div class="category-item">
+                <img src="/img/den4.png" alt="Đèn phòng ngủ">
+                <div class="category-info">
+                    <h4>ĐÈN PHÒNG NGỦ</h4>
+                    <span>(Số sản phẩm) SẢN PHẨM</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="products-section featured-products-section">
+        <h3 class="section-title">SẢN PHẨM BÁN CHẠY NHẤT CHILLAXLIGHT</h3>
+        <%- include('../partials/product-card', { products: featuredProducts }) %>
+    </section>
+    
+    <section class="products-section favorite-products-section">
+        <h3 class="section-title">SẢN PHẨM YÊU THÍCH</h3>
+        <%- include('../partials/product-card', { products: favoriteProducts }) %>
+    </section>
+    
+    
+<script>
+document.querySelectorAll('.btn-add-cart').forEach(button => {
+    button.addEventListener('click', function() {
+        const card = this.closest('.product-card');
+        this.style.display = 'none';
+        card.querySelector('.btn-view-details').style.display = 'block';
+    });
+});
+</script>
+
+    <section class="blog-section">
+        <h3 class="section-title">BÀI VIẾT CỦA CHILLAXLIGHT</h3>
+        <div class="blog-list">
+            <div class="blog-post">
+                <img src="/img/post1.png" alt="Blog Post Image">
+                <div class="post-content">
+                    <h5>5 Sai Lầm Cần Tránh Khi Mua Đèn Trang Trí Cho Không Gian Ngủ</h5>
+                    <p>Không gian phòng ngủ hai đại ngày nay không chỉ là nơi nghỉ ngơi mà...</p>
+                    <a href="post.ejs" class="read-more-btn">Xem thêm <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="blog-post">
+                <img src="/img/post2.png" alt="Blog Post Image">
+                <div class="post-content">
+                    <h5>TOP những mẫu đèn ngủ treo tường - Xu hướng chiếu sáng cho mọi...</h5>
+                    <p>Gợi ý những mẫu đèn ngủ treo tường hợp xu hướng chiếu sáng cho mọi...</p>
+                    <a href="post.ejs" class="read-more-btn">Xem thêm <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="blog-post">
+                <img src="/img/post3.png" alt="Blog Post Image">
+                <div class="post-content">
+                    <h5>Hướng dẫn 5 Bước Lắp Đặt Ngôi Nhà Tulip Hiện Đại - Độc Đáo, Tinh Tế</h5>
+                    <p>Hướng dẫn 5 bước lắp đặt ngôi nhà Tulip xinh xắn thêm lung linh hơn.</p>
+                    <a href="post.ejs" class="read-more-btn">Xem thêm <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials-section">
+        <h3 class="section-title">ĐÁNH GIÁ CỦA KHÁCH HÀNG VỀ CHILLAXLIGHT</h3>
+        <div class="testimonial-list">
+            <div class="testimonial-card">
+                <img src="/images/avatar-mai-thi-huong-anh.jpg" alt="Mai Thị Hương Anh">
+                <h4>Mai Thị Hương Anh</h4>
+                <p>"Rất yêu thích cái đèn decor chỉ để đèn, vì là đèn decor nên không cần bật đèn để sáng cả phòng, mà đơn giản hơn là tạo thêm không khí ấm áp, chill chill. Đèn đẹp mà chất lượng nữa, sản phẩm này xứng đáng để đặt trong phòng khách."</p>
+            </div>
+            <div class="testimonial-card">
+                <img src="/images/avatar-trinh-minh-linh.jpg" alt="Trịnh Minh Linh">
+                <h4>Trịnh Minh Linh</h4>
+                <p>"Mình rất kỹ tính khi chọn đồ, nhưng Chillax Light thực sự không làm mình thất vọng. Đèn rất đẹp, chất lượng tốt, độ hoàn thiện cao. Dùng hơn 2 tháng rồi mà vẫn như mới. Sẽ ủng hộ Chillax Light nữa."</p>
+            </div>
+            <div class="testimonial-card">
+                <img src="/images/avatar-le-tuan-hung.jpg" alt="Lê Tuấn Hưng">
+                <h4>Lê Tuấn Hưng</h4>
+                <p>"Shop giao hàng đúng hẹn, tư vấn nhiệt tình. Mình đặt cho con trai một chiếc đèn ngủ hình mây, bé nhà mình rất thích. Đèn có nhiều chế độ sáng, rất phù hợp, dùng để làm đèn ngủ hoặc đèn đọc sách."</p>
+            </div>
+        </div>
+    </section>
+
+</div> 
+<!-- Modal Đăng nhập/Đăng ký -->
+<div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content custom-modal">
+        <div class="modal-header border-0">
+          <h5 class="modal-title text-pink">Chào mừng đến với CHILLAXLIGHT</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Tabs -->
+          <ul class="nav nav-tabs justify-content-center mb-3" id="authTabs">
+            <li class="nav-item">
+              <a class="nav-link active" id="login-tab" data-bs-toggle="tab" href="#loginTab">Đăng nhập</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="register-tab" data-bs-toggle="tab" href="#registerTab">Đăng ký</a>
+            </li>
+          </ul>
+  
+          <!-- Tab Content -->
+          <div class="tab-content">
+            <!-- Đăng nhập -->
+            <div class="tab-pane fade show active" id="loginTab">
+              <form action="/auth/login" method="POST">
+                <div class="mb-3">
+                  <label class="form-label">Email</label>
+                  <input type="email" name="email" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Mật khẩu</label>
+                  <input type="password" name="password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-pink w-100">Đăng nhập</button>
+              </form>
+            </div>
+  
+            <!-- Đăng ký -->
+            <div class="tab-pane fade" id="registerTab">
+              <form action="/auth/register" method="POST">
+                <div class="mb-3">
+                  <label class="form-label">Tên đăng nhập</label>
+                  <input type="text" name="username" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Email</label>
+                  <input type="email" name="email" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Mật khẩu</label>
+                  <input type="password" name="password" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Nhập lại mật khẩu</label>
+                  <input type="password" name="confirmPassword" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-pink w-100">Đăng ký</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Popup thông báo -->
+<div class="modal fade" id="notificationModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="notificationTitle">Thông báo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body text-center">
+                 <div id="notificationIcon" class="mb-3">
+           <i class="fas fa-info-circle fa-3x text-pink"></i>
+         </div>
+        <p id="notificationMessage" class="mb-3"></p>
+        <div id="notificationButton" class="d-none">
+          <button type="button" class="btn btn-success" onclick="showLoginModal()">
+            <i class="fas fa-sign-in-alt"></i> Đăng nhập ngay
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Data cho thông báo -->
+<div id="notificationData" 
+     data-success="<%= typeof success_msg !== 'undefined' ? success_msg : '' %>"
+     data-error="<%= typeof error_msg !== 'undefined' ? error_msg : '' %>"
+     style="display: none;"></div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const notificationData = document.getElementById('notificationData');
+    const successMsg = notificationData.getAttribute('data-success');
+    const errorMsg = notificationData.getAttribute('data-error');
+    
+    if (successMsg && successMsg.length > 0) {
+      showNotification('Thành công!', successMsg, 'success');
+    }
+    
+    if (errorMsg && errorMsg.length > 0) {
+      showNotification('Lỗi!', errorMsg, 'error');
+    }
+  });
+
+     function showNotification(title, message, type) {
+     const modal = new bootstrap.Modal(document.getElementById('notificationModal'));
+     const titleEl = document.getElementById('notificationTitle');
+     const messageEl = document.getElementById('notificationMessage');
+     const iconEl = document.getElementById('notificationIcon');
+     const buttonEl = document.getElementById('notificationButton');
+     
+     titleEl.textContent = title;
+     messageEl.textContent = message;
+     
+     if (type === 'success') {
+       iconEl.innerHTML = '<i class="fas fa-check-circle fa-3x text-pink"></i>';
+       buttonEl.classList.remove('d-none');
+     } else {
+       iconEl.innerHTML = '<i class="fas fa-exclamation-circle fa-3x text-pink"></i>';
+       buttonEl.classList.add('d-none');
+     }
+     
+     modal.show();
+   }
+
+  function showLoginModal() {
+    // Đóng popup thông báo trước
+    const notificationModal = bootstrap.Modal.getInstance(document.getElementById('notificationModal'));
+    if (notificationModal) {
+      notificationModal.hide();
+    }
+    
+    // Sau đó mở modal đăng nhập
+    const authModal = new bootstrap.Modal(document.getElementById('authModal'));
+    authModal.show();
+    
+    // Chuyển sang tab đăng nhập
+    const loginTab = document.getElementById('login-tab');
+    const loginTabInstance = new bootstrap.Tab(loginTab);
+    loginTabInstance.show();
+  }
+</script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        let cartCountEl = document.getElementById("cart-count");
+        let cartCount = 0; // Có thể lấy từ server hoặc localStorage nếu muốn lưu lâu dài
+    
+        document.querySelectorAll(".add-to-cart-btn").forEach(button => {
+            button.addEventListener("click", (e) => {
+                e.preventDefault();
+                cartCount++;
+                cartCountEl.textContent = cartCount;
+    
+                // Lưu vào localStorage (để không mất khi reload)
+                localStorage.setItem("cartCount", cartCount);
+            });
+        });
+    
+        // Khi load trang, lấy số từ localStorage
+        let savedCount = localStorage.getItem("cartCount");
+        if (savedCount) {
+            cartCount = parseInt(savedCount);
+            cartCountEl.textContent = cartCount;
+        }
+    });
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liên Hệ Chillax Light</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+           
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .contact-container {
+            
+           
+            display: flex;
+            flex-wrap: wrap; /* Allows wrapping on smaller screens */
+            max-width: 1000px;
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        /* Left Section: Contact Info */
+        .contact-info {
+            flex: 1;
+            min-width: 300px; /* Minimum width before wrapping */
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            border-right: 1px solid #eee; /* Separator */
+        }
+
+        .contact-info h2 {
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;
+            color: #000;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start; /* Align icon and text to top */
+            gap: 15px;
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        .info-item .icon {
+            font-size: 1.5em; /* For emoji/font icons */
+            color: #d81b60; /* Pink color */
+            flex-shrink: 0; /* Prevent icon from shrinking */
+            line-height: 1; /* Adjust vertical alignment */
+            margin-top: 2px; /* Small adjustment */
+        }
+
+        .info-item .icon img {
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
+        }
+
+        .info-item a {
+            color: #d81b60;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .info-item a:hover {
+            text-decoration: underline;
+        }
+
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .social-links a {
+            color: #555;
+            text-decoration: none;
+            font-weight: normal;
+        }
+
+        .social-links a:hover {
+            color: #d81b60;
+        }
+
+        .contact-logo {
+            text-align: center;
+            margin-top: auto; /* Pushes the logo to the bottom if space allows */
+            padding-top: 20px; /* Space above logo */
+        }
+
+        .contact-logo img {
+            max-width: 200px;
+            height: auto;
+        }
+
+        /* Right Section: Contact Form */
+        .contact-form {
+            flex: 1;
+            min-width: 300px; /* Minimum width before wrapping */
+            padding: 40px;
+        }
+
+        .contact-form h2 {
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;
+            color: #000;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group textarea {
+            width: calc(100% - 20px); /* Account for padding */
+            padding: 12px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1em;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group textarea:focus {
+            border-color: #d81b60;
+        }
+
+        .form-group textarea {
+            resize: vertical; /* Allow vertical resizing */
+            min-height: 100px;
+        }
+
+        .submit-button {
+            background-color: #d81b60; /* Pink button */
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: block;
+            margin: 0 auto; /* Center the button */
+        }
+
+        .submit-button:hover {
+            background-color: #c01353; /* Darker pink on hover */
+            transform: translateY(-2px);
+        }
+
+        .success-message {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 1.1em;
+            color: #28a745; /* Green for success */
+            font-weight: 600;
+            display: none; /* Hidden by default */
+            border: 1px solid #c3e6cb;
+            background-color: #d4edda;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .contact-container {
+                flex-direction: column;
+                width: 95%;
+            }
+
+            .contact-info, .contact-form {
+                padding: 30px 20px;
+                min-width: unset;
+                border-right: none;
+            }
+
+            .contact-info {
+                border-bottom: 1px solid #eee; /* Add bottom border on mobile */
+            }
+
+            .contact-logo {
+                margin-top: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contact-info, .contact-form {
+                padding: 20px 15px;
+            }
+            .info-item {
+                font-size: 1em;
+            }
+            .contact-logo img {
+                max-width: 150px;
+            }
+            .submit-button {
+                padding: 10px 25px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<%- include('../partials/header') %>
+<body>
+    <div class="contact-container">
+        <div class="contact-info">
+            <h2>THÔNG TIN LIÊN HỆ</h2>
+            <div class="info-item">
+                <span class="icon"><img src="https://img.icons8.com/ios-filled/50/d81b60/marker.png" alt="Địa chỉ" /></span>
+                <div>
+                    <strong>Địa chỉ kho:</strong> 106 Mễ Trì Thượng, Nam Từ Liêm, Hà Nội
+                </div>
+            </div>
+            <div class="info-item">
+                <span class="icon"><img src="https://img.icons8.com/ios-filled/50/d81b60/phone.png" alt="Hotline" /></span>
+                <div>
+                    <strong>Hotline / Zalo:</strong> <a href="tel:+84528757062">0528 757062</a> (8:00 – 21:00)
+                </div>
+            </div>
+            <div class="info-item">
+                <span class="icon"><img src="https://img.icons8.com/ios-filled/50/d81b60/new-post.png" alt="Email" /></span>
+                <div>
+                    <strong>Email CSKH:</strong> <a href="mailto:chillaxlight@gmail.com">chillaxlight@gmail.com</a>
+                </div>
+            </div>
+            <div class="info-item">
+                <span class="icon"><img src="https://img.icons8.com/ios-filled/50/d81b60/link.png" alt="Mạng xã hội" /></span>
+                <div>
+                    <strong>Kết nối mạng xã hội:</strong>
+                    <div class="social-links">
+                        <a href="#" target="_blank">Facebook</a> /
+                        <a href="#" target="_blank">TikTok</a> /
+                        <a href="#" target="_blank">Shoppe</a>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-logo">
+                <img src="img/logo.png"
+                 alt="Chillax Light Logo" />
+            </div>
+        </div>
+
+        <div class="contact-form">
+            <h2>LIÊN HỆ VỚI CHÚNG TÔI NGAY</h2>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">Tên của bạn (*)</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Số điện thoại (*)</label>
+                    <input type="text" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Địa chỉ Email (*)</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Thông điệp</label>
+                    <textarea id="message" name="message" rows="5"></textarea>
+                </div>
+                <button type="submit" class="submit-button">GỬI ĐI</button>
+            </form>
+            <div id="successMessage" class="success-message">
+                * Phản hồi của bạn đã được gửi đi thành công. Xin cảm ơn!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Ngăn chặn form gửi đi thực sự
+            
+            // Lấy các trường input
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            // Kiểm tra các trường bắt buộc
+            if (name && phone && email) {
+                // Hiển thị thông báo thành công
+                document.getElementById('successMessage').style.display = 'block';
+
+                // Tùy chọn: Xóa nội dung form sau khi gửi
+                this.reset(); // Xóa tất cả các trường trong form
+                
+                // Tùy chọn: Ẩn thông báo sau vài giây
+                setTimeout(() => {
+                    document.getElementById('successMessage').style.display = 'none';
+                }, 5000); // Ẩn sau 5 giây
+            } else {
+                alert('Vui lòng điền đầy đủ các thông tin bắt buộc (*)!');
+            }
+        });
+    </script>
+</body>
+
+</html>
+<%- include('../partials/footer') %>

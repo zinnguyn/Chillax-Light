@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cài Đặt Hệ Thống | Admin Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(135deg, #d81b60 0%, #c2185b 100%);
+            color: white;
+            padding: 20px 0;
+            flex-shrink: 0;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .sidebar-header {
+            padding: 0 20px 20px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            margin-bottom: 20px;
+        }
+        
+        .sidebar-header h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            text-align: center;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+        }
+        
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+        
+        .sidebar-menu a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 12px 20px;
+            transition: all 0.3s ease;
+            border-radius: 0 25px 25px 0;
+            margin-right: 10px;
+            font-weight: 500;
+        }
+        
+        .sidebar-menu a:hover {
+            background-color: rgba(255,255,255,0.2);
+            transform: translateX(5px);
+        }
+        
+        .sidebar-menu a.active {
+            background-color: rgba(255,255,255,0.3);
+            border-left: 4px solid white;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            margin-left: 250px;
+            padding: 30px;
+            background-color: #f9f9f9;
+            min-height: 100vh;
+        }
+        
+        .page-header {
+            background: white;
+            padding: 25px 30px;
+            border-radius: 15px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+        
+        .page-header h1 {
+            color: #d81b60;
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .page-header p {
+            color: #666;
+            margin-top: 8px;
+            font-size: 1rem;
+        }
+        
+        /* Settings Sections */
+        .settings-container {
+            display: grid;
+            gap: 30px;
+        }
+        
+        .settings-section {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        
+        .section-header {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px 30px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .section-header h2 {
+            color: #333;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-content {
+            padding: 30px;
+        }
+        
+        /* Form Groups */
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 0.95rem;
+        }
+        
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="url"],
+        .form-group input[type="number"],
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 15px 18px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: #fafbfc;
+        }
+        
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group input[type="url"]:focus,
+        .form-group input[type="number"]:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #d81b60;
+            background-color: #fff;
+            box-shadow: 0 0 0 4px rgba(216, 27, 96, 0.1);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: #d81b60;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .toggle-label {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .toggle-label span {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        /* Buttons */
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-right: 15px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #d81b60 0%, #c2185b 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(216, 27, 96, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(108, 117, 125, 0.4);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(220, 53, 69, 0.4);
+        }
+        
+        .button-group {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        /* Info Cards */
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .info-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-left: 4px solid #d81b60;
+        }
+        
+        .info-card h3 {
+            color: #333;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .info-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .info-card .status {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .status.online {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status.offline {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 200px;
+            }
+            .main-content {
+                margin-left: 200px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                z-index: 1000;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .info-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Mobile menu toggle */
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: #d81b60;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile menu toggle -->
+    <button class="mobile-menu-toggle" onclick="toggleSidebar()">☰</button>
+    
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>🎯 Admin Panel</h3>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="/admin">
+                📊 Dashboard
+            </a></li>
+            <li><a href="/admin/posts">
+                📝 Bài viết
+            </a></li>
+            <li><a href="/admin/products">
+                📦 Sản phẩm
+            </a></li>
+            <li><a href="/admin/users">
+                👥 Người dùng
+            </a></li>
+            <li><a href="/admin/settings" class="active">
+                ⚙️ Cài đặt
+            </a></li>
+            <li><a href="/">
+                🏠 Về trang chủ
+            </a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="page-header">
+            <h1>⚙️ Cài Đặt Hệ Thống</h1>
+            <p>Quản lý cấu hình và thiết lập hệ thống</p>
+        </div>
+
+        <!-- System Info Cards -->
+        <div class="info-cards">
+            <div class="info-card">
+                <h3>🖥️ Trạng thái hệ thống</h3>
+                <p>Hệ thống đang hoạt động bình thường</p>
+                <span class="status status-online">🟢 Online</span>
+            </div>
+            <div class="info-card">
+                <h3>📊 Phiên bản</h3>
+                <p>Phiên bản hiện tại: 1.0.0</p>
+                <span class="status status-online">✅ Cập nhật</span>
+            </div>
+            <div class="info-card">
+                <h3>💾 Dung lượng</h3>
+                <p>Dung lượng sử dụng: 2.5 GB / 10 GB</p>
+                <span class="status status-online">📈 25%</span>
+            </div>
+        </div>
+
+        <!-- Settings Sections -->
+        <div class="settings-container">
+            <!-- General Settings -->
+            <div class="settings-section">
+                <div class="section-header">
+                    <h2>🌐 Cài đặt chung</h2>
+                </div>
+                <div class="section-content">
+                    <form action="/admin/settings/general" method="POST">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="site_name">Tên website</label>
+                                <input type="text" id="site_name" name="site_name" value="<%= settings ? settings.site_name : 'Admin Dashboard' %>" placeholder="Nhập tên website">
+                            </div>
+                            <div class="form-group">
+                                <label for="site_url">URL website</label>
+                                <input type="url" id="site_url" name="site_url" value="<%= settings ? settings.site_url : 'http://localhost:3000' %>" placeholder="https://example.com">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="site_description">Mô tả website</label>
+                            <textarea id="site_description" name="site_description" placeholder="Nhập mô tả website"><%= settings ? settings.site_description : '' %></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="admin_email">Email quản trị</label>
+                                <input type="email" id="admin_email" name="admin_email" value="<%= settings ? settings.admin_email : 'admin@example.com' %>" placeholder="admin@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="timezone">Múi giờ</label>
+                                <select id="timezone" name="timezone">
+                                    <option value="Asia/Ho_Chi_Minh" <%= settings && settings.timezone === 'Asia/Ho_Chi_Minh' ? 'selected' : '' %>>Asia/Ho_Chi_Minh (GMT+7)</option>
+                                    <option value="UTC" <%= settings && settings.timezone === 'UTC' ? 'selected' : '' %>>UTC (GMT+0)</option>
+                                    <option value="America/New_York" <%= settings && settings.timezone === 'America/New_York' ? 'selected' : '' %>>America/New_York (GMT-5)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="button-group">
+                            <button type="submit" class="btn btn-primary">💾 Lưu cài đặt chung</button>
+                            <button type="reset" class="btn btn-secondary">🔄 Đặt lại</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Security Settings -->
+            <div class="settings-section">
+                <div class="section-header">
+                    <h2>🔒 Cài đặt bảo mật</h2>
+                </div>
+                <div class="section-content">
+                    <form action="/admin/settings/security" method="POST">
+                        <div class="form-group">
+                            <div class="toggle-label">
+                                <span>Bật xác thực 2 yếu tố</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" name="two_factor" <%= settings && settings.two_factor ? 'checked' : '' %>>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="toggle-label">
+                                <span>Giới hạn đăng nhập sai</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" name="login_limit" <%= settings && settings.login_limit ? 'checked' : '' %>>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="toggle-label">
+                                <span>Ghi log hoạt động</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" name="activity_log" <%= settings && settings.activity_log ? 'checked' : '' %>>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="session_timeout">Thời gian phiên làm việc (phút)</label>
+                                <input type="number" id="session_timeout" name="session_timeout" value="<%= settings ? settings.session_timeout : 30 %>" min="5" max="480">
+                            </div>
+                            <div class="form-group">
+                                <label for="max_login_attempts">Số lần đăng nhập sai tối đa</label>
+                                <input type="number" id="max_login_attempts" name="max_login_attempts" value="<%= settings ? settings.max_login_attempts : 5 %>" min="3" max="10">
+                            </div>
+                        </div>
+                        
+                        <div class="button-group">
+                            <button type="submit" class="btn btn-primary">💾 Lưu cài đặt bảo mật</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Email Settings -->
+            <div class="settings-section">
+                <div class="section-header">
+                    <h2>📧 Cài đặt email</h2>
+                </div>
+                <div class="section-content">
+                    <form action="/admin/settings/email" method="POST">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="smtp_host">SMTP Host</label>
+                                <input type="text" id="smtp_host" name="smtp_host" value="<%= settings ? settings.smtp_host : 'smtp.gmail.com' %>" placeholder="smtp.gmail.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="smtp_port">SMTP Port</label>
+                                <input type="number" id="smtp_port" name="smtp_port" value="<%= settings ? settings.smtp_port : 587 %>" placeholder="587">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="smtp_user">SMTP Username</label>
+                                <input type="email" id="smtp_user" name="smtp_user" value="<%= settings ? settings.smtp_user : '' %>" placeholder="your-email@gmail.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="smtp_pass">SMTP Password</label>
+                                <input type="password" id="smtp_pass" name="smtp_pass" value="<%= settings ? settings.smtp_pass : '' %>" placeholder="Nhập mật khẩu">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="toggle-label">
+                                <span>Bật gửi email thông báo</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" name="email_notifications" <%= settings && settings.email_notifications ? 'checked' : '' %>>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="button-group">
+                            <button type="submit" class="btn btn-primary">💾 Lưu cài đặt email</button>
+                            <button type="button" class="btn btn-secondary" onclick="testEmail()">📧 Gửi email test</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Maintenance Settings -->
+            <div class="settings-section">
+                <div class="section-header">
+                    <h2>🔧 Cài đặt bảo trì</h2>
+                </div>
+                <div class="section-content">
+                    <form action="/admin/settings/maintenance" method="POST">
+                        <div class="form-group">
+                            <div class="toggle-label">
+                                <span>Chế độ bảo trì</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" name="maintenance_mode" <%= settings && settings.maintenance_mode ? 'checked' : '' %>>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="maintenance_message">Thông báo bảo trì</label>
+                            <textarea id="maintenance_message" name="maintenance_message" placeholder="Nhập thông báo bảo trì"><%= settings ? settings.maintenance_message : 'Website đang trong quá trình bảo trì. Vui lòng quay lại sau!' %></textarea>
+                        </div>
+                        
+                        <div class="button-group">
+                            <button type="submit" class="btn btn-primary">💾 Lưu cài đặt bảo trì</button>
+                            <button type="button" class="btn btn-danger" onclick="clearCache()">🗑️ Xóa cache</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+        
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const mobileToggle = document.querySelector('.mobile-menu-toggle');
+            
+            if (window.innerWidth <= 768) {
+                if (!sidebar.contains(event.target) && !mobileToggle.contains(event.target)) {
+                    sidebar.classList.remove('open');
+                }
+            }
+        });
+        
+        function testEmail() {
+            if (confirm('Bạn có muốn gửi email test không?')) {
+                // Gửi request test email
+                alert('Đã gửi email test!');
+            }
+        }
+        
+        function clearCache() {
+            if (confirm('Bạn có chắc chắn muốn xóa cache không? Hành động này có thể làm chậm website tạm thời.')) {
+                // Gửi request xóa cache
+                alert('Đã xóa cache thành công!');
+            }
+        }
+    </script>
+</body>
+</html> 
